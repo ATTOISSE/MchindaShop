@@ -15,8 +15,9 @@
 			<div class="col-md-2 my-3 mx-5 h-100">
 				<div class="card  border-2 background">
 					<center>
+					<a href="{{path('product_details',{wording:product.wording})}}">
 						<img class="rounded" src="{{ asset('images/' ~ product.path) }}" alt="image" width="180" height="200">
-
+					</a>
 					</center>
 					<h3 class="text-center">
 						{{product.wording}}
@@ -24,7 +25,6 @@
 					{% set formattedPrice = product.price | number_format(2, ',', ' ') %}
 					<h4 class="text-primary text-center">{{ formattedPrice }}
 						{{ 'KMF' }}</h4>
-				</h2>
 
 				<p class="text-center">
 					{{product.description}}
