@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}page de categorie!
+{% endblock %}
+
+{% block body %}
+
+{{include('navbar.html.twig')}}
+
+		{% for category in categories %}
+			<h1 class="text-center text-white container my-5 bg-secondary">{{category.name}}
+			</h1>
+			<div class="row my-2">
+				{% for product in products %}
+					{% if product.categories.name == category.name %}
+						<div class="col-md-2 my-3 mx-5 h-100">
+							<div class="card  border-2 background">
+								<center>
+									<img class="rounded" src="{{ asset('images/' ~ product.path) }}" alt="image" width="180" height="200">
+
+								</center>
+								<h3 class="text-center">
+									{{product.wording}}
+								</h3>
+								{% set formattedPrice = product.price | number_format(2, ',', ' ') %}
+								<h4 class="text-primary text-center">{{ formattedPrice }}
+									{{ 'KMF' }}</h4>
+							</h2>
+
+							<p class="text-center">
+								{{product.description}}
+							</p>
+							<div class="btn btn-primary">Acheter
+								<i class="bi bi-cart"></i>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+	{% endfor %}
+</div>{% endblock %}

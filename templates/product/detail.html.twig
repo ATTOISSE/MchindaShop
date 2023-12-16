@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detail
+	{{product.wording}}
+	!
+{% endblock %}
+
+{% block body %}
+	<style>
+		.bordered-right {
+			border-right: 1px solid black;
+		}
+	</style>
+	{{include('navbar.html.twig')}}
+	<section class="container mt-5">
+		<div class="card">
+			<div class="card-header bg-info text-light text-center">
+				<h2>
+					Detail du produit :
+					{{product.wording}}
+				</h2>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-6 bordered-right">
+						<img class="rounded" src="{{ asset('images/' ~ product.path) }}" alt="image" width="500" height="350">
+					</div>
+					<div class="col-md-5 mt-3 mx-3">
+						<h2>
+						Libelle : <span class="text-info">
+							{{product.wording}}
+                            </span> 
+						</h2>
+						<h2>
+						Prix :
+                            {% set formattedPrice = product.price | number_format(2, ',', ' ') %}
+                            <span class="text-info">
+							{{formattedPrice}}
+							KMF
+                            </span>
+						</h2>
+						<h2>
+						Quantité :
+                        <span class="text-info">
+							{{product.quantity}}
+                            </span>
+						</h2>
+						<h2>
+						Categorie :
+                        <span class="text-info">
+							{{product.categories}}
+                            </span>
+						</h2>
+						<h2>
+						Description :
+                        <span class="text-info">
+							{{product.description}}
+                            </span>
+						</h2>
+						{% if product.quantity > 0 %}
+							<button class="btn btn-outline-success mt-5 col-md-4 offset-5">
+								<i class="bi bi-plus-circle"></i>
+									au Panier
+							</button>
+							{% else %}
+                                <h3 class="text-danger mt-3 offset-1">Rupture de stock</h3>
+						{% endif %}
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

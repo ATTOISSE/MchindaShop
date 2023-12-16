@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page de produit
+{% endblock %}
+
+{% block body %}
+	<style>
+		.background {
+			background: #f6f6f6;
+		}
+	</style>
+	<h1 class="text-center mt-3">Nos Meilleurs produits</h1>
+	<div class="row my-3">
+		{% for product in products %}
+			<div class="col-md-2 my-3 mx-5 h-100">
+				<div class="card  border-2 background">
+					<center>
+						<img class="rounded" src="{{ asset('images/' ~ product.path) }}" alt="image" width="180" height="200">
+
+					</center>
+					<h3 class="text-center">
+						{{product.wording}}
+					</h3>
+					{% set formattedPrice = product.price | number_format(2, ',', ' ') %}
+					<h4 class="text-primary text-center">{{ formattedPrice }}
+						{{ 'KMF' }}</h4>
+				</h2>
+
+				<p class="text-center">
+					{{product.description}}
+				</p>
+				<div class="btn btn-primary">Acheter
+					<i class="bi bi-cart"></i>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</div>{% endblock %}

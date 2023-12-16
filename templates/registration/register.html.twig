@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block body %}
+	<style>
+		body {
+			background: url('images/inscriptionbackground.jpg');
+			background-size: cover;
+		}
+		.card, .card-header{
+			border:solid 1px white;
+		}
+	</style>
+
+	{{ form_errors(registrationForm) }}
+
+	{{ form_start(registrationForm) }}
+	<div class="container col-md-8 mt-5">
+		<div class="card bg-transparent">
+			<div class="card-header text-white">
+				<h1 class="h3 mb-3 font-weight-bold text-center">Inscrivez-vous s'il vous plaît</h1>
+			</div>
+			<div class="card-body text-white">
+				{{ form_row(registrationForm.name) }}
+				{{ form_row(registrationForm.email) }}
+				{{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+				{{ form_row(registrationForm.agreeTerms) }}
+
+				<button type="submit" class="btn btn-outline-success mt-2 offset-5 col-md-2">S'inscrire</button>
+				<p class="text-white">Vous avez un compte ?
+					<a href="{{path('app_login')}}">connectez-vous</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	{{ form_end(registrationForm) }}
+{% endblock %}

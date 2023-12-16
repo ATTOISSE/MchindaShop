@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Authentification!
+{% endblock %}
+
+{% block body %}
+
+<style>
+body{
+	background: url('images/lock.png')
+}
+.card{
+	border:solid 1px white;
+}
+</style>
+
+	<form method="post">
+		{% if error %}
+			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
+
+		{% if app.user %}
+			<div class="mb-3">
+				Tu es connecté(e)
+				{{ app.user.userIdentifier }},
+				<a href="{{ path('app_logout') }}">Logout</a>
+			</div>
+		{% endif %}
+		<div class="container offset-6 col-md-6 mt-5">
+			<div class="card bordered-1 bg-transparent">
+				<div class="card-header bg-secondary text-white text-center">
+					<h1 class="h3 mb-3 font-weight-bold t">Authentifiez-vous s'il vous plaît</h1>
+				</div>
+				<div class="card-body">
+					<label for="inputEmail" class="text-white">Email</label>
+					<input type="email" style="background:transparent;" value="{{ last_username }}" name="email" id="inputEmail" class="form-control input-transparent text-white" autocomplete="email" required autofocus>
+					<label for="inputPassword" class="text-white">Mot de passe</label>
+					<input type="password" style="background:transparent;" name="password" id="inputPassword" class="form-control text-white" autocomplete="current-password" required>
+
+					<input style="background:transparent;" type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+					<button class="btn btn-lg btn-primary offset-5 mt-3" type="submit">
+						Se connecter
+					</button>
+					<p class="text-white">Vous n'avez pas un compte ? <a href="{{path('app_register')}}">Inscrivez-vous</a></p>
+				</div>
+			</div>
+		</div>
+	</form>
+{% endblock %}

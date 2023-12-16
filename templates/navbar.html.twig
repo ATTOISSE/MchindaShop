@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil
+{% endblock %}
+
+{% block body %}
+
+	<style>
+		.icon {
+			font-size: 25px;
+		}
+	</style>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand text-bold" href="#">Mchinda Shop</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0 offset-1">
+					<li class="nav-item">
+						<a class="nav-link active " aria-current="page" href="{{path('home')}}">Accueil</a>
+					</li>
+					<li class="nav-item mx-3">
+						<a class="nav-link active " href="{{path('category_index')}}">Categories</a>
+					</li>
+					<i class="bi bi-cart-fill offset-6 icon"></i>
+					<span class="text-danger text-bold">0</span>
+
+					{% if app.user %}
+						<a href="{{path('app_logout')}}">
+							<i class="bi bi-box-arrow-right icon mx-4"></i>
+						</a>
+						<a href="{{path('app_login')}}">
+							<i class="bi bi-person-circle icon mx-2"></i>
+						</a>
+					{% else %}
+						<a href="{{path('app_login')}}">
+							<i class="bi bi-box-arrow-in-left icon mx-4"></i>
+						</i>
+					</a>
+				{% endif %}
+			</ul>
+			<form class="d-flex offset-3">
+				<input class="form-control me-2 mx-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form>
+		</div>
+	</div>
+</nav>{% endblock body %}
