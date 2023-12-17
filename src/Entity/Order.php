@@ -19,7 +19,7 @@ class Order
     #[ORM\Column(length: 40)]
     private ?string $number = null;
 
-    #[ORM\Column]
+    #[ORM\Column(options:['default' => 'CURRENT_TIMESTAMPS'])]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(length: 20)]
@@ -28,15 +28,24 @@ class Order
     #[ORM\Column]
     private ?float $amountTotal = null;
 
-    #[ORM\ManyToOne(inversedBy: 'orders')]
-    private ?Client $Client = null;
-
     #[ORM\OneToMany(mappedBy: 'orders', targetEntity: Product::class)]
     private Collection $products;
+
+    #[ORM\Column(length: 20,unique:true)]
+    private ?string $reference = null;
+
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $users = null;
+
+    #[ORM\OneToMany(mappedBy: 'orders', targetEntity: OrderDetails::class,cascade:['persist'])]
+    private Collection $orderDetails;
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->orderDetails = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -92,17 +101,6 @@ class Order
         return $this;
     }
 
-    public function getClient(): ?Client
-    {
-        return $this->Client;
-    }
-
-    public function setClient(?Client $Client): static
-    {
-        $this->Client = $Client;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Product>
@@ -128,6 +126,60 @@ class Order
             // set the owning side to null (unless already changed)
             if ($product->getOrders() === $this) {
                 $product->setOrders(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(string $reference): static
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    public function getUsers(): ?User
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?User $users): static
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderDetails>
+     */
+    public function getOrderDetails(): Collection
+    {
+        return $this->orderDetails;
+    }
+
+    public function addOrderDetail(OrderDetails $orderDetail): static
+    {
+        if (!$this->orderDetails->contains($orderDetail)) {
+            $this->orderDetails->add($orderDetail);
+            $orderDetail->setOrders($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderDetail(OrderDetails $orderDetail): static
+    {
+        if ($this->orderDetails->removeElement($orderDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($orderDetail->getOrders() === $this) {
+                $orderDetail->setOrders(null);
             }
         }
 

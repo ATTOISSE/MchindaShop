@@ -29,9 +29,9 @@
 				<p class="text-center">
 					{{product.description}}
 				</p>
-				<div class="btn btn-primary">Acheter
-					<i class="bi bi-cart"></i>
-				</div>
+				<a href="{{path('product_details',{wording:product.wording})}}" class="btn btn-primary">Details du 
+					<i class="bi bi-gift-fill"></i>
+				</a>
 			</div>
 		</div>
 	{% endfor %}
