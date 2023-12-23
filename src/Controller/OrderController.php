@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Entity\OrderDetails;
+use App\Repository\OrderDetailsRepository;
+use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,8 +17,19 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/commande', name: 'order_')]
 class OrderController extends AbstractController
 {
-    #[Route('/ajout', name: 'add')]
+    #[Route('/', name: 'index')]
     public function index(
+                          OrderRepository $order,
+                          OrderDetailsRepository $orderDetail
+                          ){
+        return $this->render('order/index.html.twig', [
+            'orderDetail' => $orderDetail->findOneBy([], ['id' => 'desc']),
+            'order' => $order->findOneBy([], ['id' => 'desc'])
+        ]);
+    }
+    
+    #[Route('/ajout', name: 'add')]
+    public function add(
         Security $security,
         SessionInterface $session,
         ProductRepository $productRepository,

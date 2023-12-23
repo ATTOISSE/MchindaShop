@@ -23,7 +23,7 @@ class Order
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(length: 20)]
-    private ?string $status = null;
+    private ?string $status = null; 
 
     #[ORM\Column]
     private ?float $amountTotal = null;

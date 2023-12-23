@@ -6,13 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HeaderController extends AbstractController
+#[Route('/paiement', name: 'payment_')]
+class PaymentController extends AbstractController
 {
-    #[Route('/header', name: 'app_header')]
+    #[Route('/', name: 'index')]
     public function index(): Response
     {
-        return $this->render('header/index.html.twig', [
-            'controller_name' => 'HeaderController',
+        return $this->render('payment/index.html.twig', [
+            'controller_name' => 'PaymentController',
         ]);
     }
 }

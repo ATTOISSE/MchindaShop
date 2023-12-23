@@ -1,20 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OrderController!{% endblock %}
+{% block title %}Page de commande
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Memoire/src/Controller/OrderController.php'|file_link(0) }}">src/Controller/OrderController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Memoire/templates/order/index.html.twig'|file_link(0) }}">templates/order/index.html.twig</a></code></li>
-    </ul>
-</div>
+	{{include('navbar.html.twig')}}
+	<div class="container mt-5">
+		<div class="card">
+			<div class="card-header bg-info text-center">
+            <h2 class="text-white"> Commande de M/Mlle : {{order.users.name}} </h2>
+            </div>
+            <div class="card-body">
+            <table class="table">
+            <th>N° de commande</th>
+            <th>Libelle</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+            <th>Reference</th>
+            <th>Total Unitaire</th>
+            <tr>
+            <td> {{orderDetail.orders.number}} </td>
+            <td> {{orderDetail.products.wording}} </td>
+            <td> {{orderDetail.price}}</td>
+            <td> {{orderDetail.quantity}} </td>
+            <td> {{orderDetail.orders.reference}} </td>
+            <td> {{orderDetail.quantity * orderDetail.price}} </td>
+            </tr>
+            </table>
+            <select name="" id="" class="btn btn-info offset-4">
+            <option value="">Mode de paiement</option>
+            <option value="">Mobile money</option>
+            <option value="">Carte bancaire</option>
+            <option value="">A la livraison</option>
+            </select>
+            <a href="{{path('payment_index')}}" class="btn btn-outline-success mx-3 col-md-1">Payer</a>
+            </div>
+		</div>
+	</div>
 {% endblock %}
