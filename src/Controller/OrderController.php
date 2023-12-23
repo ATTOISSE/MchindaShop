@@ -32,8 +32,10 @@ class OrderController extends AbstractController
     public function add(
         Security $security,
         SessionInterface $session,
+        EntityManagerInterface $em,
+        OrderRepository $orderRepository,
         ProductRepository $productRepository,
-        EntityManagerInterface $em
+        OrderDetailsRepository $orderDetailsRepository
         ): Response
     {
         if (!$security->getUser()) {
@@ -73,6 +75,8 @@ class OrderController extends AbstractController
         
         return $this->render('order/index.html.twig', [
             'controller_name' => 'OrderController',
+            'order' => $orderRepository->findOneBy([], ['id' => 'desc']),
+            'orderDetail' => $orderDetailsRepository->findOneBy([], ['id' => 'desc'])
         ]);
     }
 }
